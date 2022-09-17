@@ -32,7 +32,7 @@ public class MyContainer {
     public int indexOf(String ele) {
             return list.indexOf(ele);
     }
-
+    // Get element of the given index
     public String getElement(int index) {
             return list.get(index);
     }
