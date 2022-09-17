@@ -34,7 +34,9 @@ public class StringExampleTwo {
     }
 
     private static boolean isPalindromeWithSb(String str) {
-       return new StringBuilder(str).reverse().toString().equals(str);
+       StringBuilder sb = new StringBuilder(str);
+       String revStr = sb.reverse().toString();
+       return revStr.equals(str);
     }
 
 }
