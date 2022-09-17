@@ -19,9 +19,8 @@ public class ConstructHTMLPapge {
         for(String name:names){
             String email = String.format(sb.toString(),name);
             System.out.println(email);
-            System.out.println("-".repeat(100));
+            System.out.println("-".repeat(200));
         }
-
         StringBuilder sb1 = new StringBuilder("Hello");
         StringBuilder sb2 = new StringBuilder("Hello");
         System.out.println(sb1 == sb2);
