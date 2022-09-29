@@ -11,7 +11,7 @@ public class TypeCasting {
         int num3 = 94;
         float num4 = num3;
 
-       Object obj = new Account(1001,"Krish",55000);
-       Account acc = (Account)obj;
+      /* Object obj = new Account(1001,"Krish",55000);
+       Account acc = (Account)obj;*/
     }
 }
