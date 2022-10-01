@@ -7,14 +7,23 @@ import java.util.List;
 public class ExceptionAssignment {
     public static void main(String[] args) {
 
-        int ccount=0,icount=0;
+        int ccount = 0, ucount = 0;
         // Count of checked and un-checked exception
-        System.out.println("Count of checked exceptions    :"+ccount);
-        System.out.println("Count of un checked exceptions :"+icount);
+        List<Exception> exceptions = getExceptionList();
+        for(Exception e:exceptions){
+            if(e instanceof  RuntimeException){
+                ucount++;
+            }else{
+                ccount++;
+            }
+        }
+        System.out.println("Count of checked exceptions    :" + ccount);
+        System.out.println("Count of un checked exceptions :" + ucount);
     }
-    public List<Exception> getExceptionList(){
-        return List.of(new IOException(),new NullPointerException(),new ArrayIndexOutOfBoundsException(),
-                new FileNotFoundException(),new StringIndexOutOfBoundsException(),new ClassCastException());
+
+    public static List<Exception> getExceptionList() {
+        return List.of(new IOException(), new NullPointerException(), new ArrayIndexOutOfBoundsException(),
+                new FileNotFoundException(), new StringIndexOutOfBoundsException(), new ClassCastException());
     }
 
 }
