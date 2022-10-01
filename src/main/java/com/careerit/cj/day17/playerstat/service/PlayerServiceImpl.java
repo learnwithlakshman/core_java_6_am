@@ -1,6 +1,6 @@
 package com.careerit.cj.day17.playerstat.service;
 import com.careerit.cj.day17.playerstat.domain.Player;
-import com.careerit.cj.day17.playerstat.dto.RoleStats;
+import com.careerit.cj.day17.playerstat.dto.RoleStatsDTO;
 import com.careerit.cj.day17.playerstat.dto.TeamAmountDTO;
 import com.careerit.cj.day17.playerstat.dto.TeamStatsDTO;
 import com.careerit.cj.day17.playerstat.util.CsvReaderUtil;
@@ -93,12 +93,12 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public List<RoleStats> getAllRoleStats() {
+    public List<RoleStatsDTO> getAllRoleStats() {
         return null;
     }
 
     @Override
-    public RoleStats getRoleStats(String role) {
+    public RoleStatsDTO getRoleStats(String role) {
         return null;
     }
 

@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
-public class RoleStats {
+public class RoleStatsDTO {
     private String roleName;
     private int playerCount;
     private double totalAmount;

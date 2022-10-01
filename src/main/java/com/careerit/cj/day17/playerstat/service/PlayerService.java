@@ -1,7 +1,7 @@
 package com.careerit.cj.day17.playerstat.service;
 
 import com.careerit.cj.day17.playerstat.domain.Player;
-import com.careerit.cj.day17.playerstat.dto.RoleStats;
+import com.careerit.cj.day17.playerstat.dto.RoleStatsDTO;
 import com.careerit.cj.day17.playerstat.dto.TeamAmountDTO;
 import com.careerit.cj.day17.playerstat.dto.TeamStatsDTO;
 
@@ -16,7 +16,7 @@ public interface PlayerService {
         public List<Player> getMaxPaidPlayers();
 
         public List<String> getRoles();
-        public RoleStats getRoleStats(String role);
+        public RoleStatsDTO getRoleStats(String role);
         public List<TeamAmountDTO> getTeamsAmountDetails();
-        public List<RoleStats> getAllRoleStats();
+        public List<RoleStatsDTO> getAllRoleStats();
 }
