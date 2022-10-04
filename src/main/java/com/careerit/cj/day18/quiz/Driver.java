@@ -1,4 +1,4 @@
-package com.careerit.cj.quiz;
+package com.careerit.cj.day18.quiz;
 
 public class Driver {
     public static void main(String[] args) {
