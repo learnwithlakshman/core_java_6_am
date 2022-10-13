@@ -17,9 +17,10 @@ public class Main {
     ProductDao productDao = new ProductDaoImpl();
 
     Product product = new Product();
-    product.setName("Sony Super Note");
-    product.setDiscount(2000);
-    product.setPrice(560000);
-    productDao.insertProduct(product);
+    product.setId(4L);
+    product.setName("Sony Notebook");
+    product.setDiscount(5000);
+    product.setPrice(600000);
+    productDao.updateProduct(product);
   }
 }
