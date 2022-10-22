@@ -1,0 +1,6 @@
+firstName: "John"
+lastName: "Doe"
+age: 20
+address:
+    city: Bangalore
+    state: Karnataka
