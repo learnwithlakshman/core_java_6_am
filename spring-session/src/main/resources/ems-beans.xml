@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="emailService" class="com.careerit.sc.di.ems.EmailServiceImpl"></bean>
+    <bean name="employeeDao" class="com.careerit.sc.di.ems.EmployeeDaoImpl"></bean>
+
+    <bean name="employeeService" class="com.careerit.sc.di.ems.EmployeeServiceImpl">
+        <constructor-arg ref="employeeDao"></constructor-arg>
+        <constructor-arg ref="emailService"></constructor-arg>
+    </bean>
+
+</beans>
