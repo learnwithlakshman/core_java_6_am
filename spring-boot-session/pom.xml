@@ -8,6 +8,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>spring-jdbc</module>
+        <module>ipl-stat-service</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
