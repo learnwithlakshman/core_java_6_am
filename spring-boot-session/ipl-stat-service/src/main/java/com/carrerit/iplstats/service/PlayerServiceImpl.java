@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -82,13 +83,16 @@ public class PlayerServiceImpl implements PlayerService {
   }
 
   @Override
+  @Transactional
   public PlayerDto updatePlayer(PlayerDto playerDto) {
     Assert.notNull(playerDto, "Player details can't null");
     Assert.notNull(playerDto.getId(), "Player id can't null");
     Long id = playerDto.getId();
     Optional<Player> opt = playerRepo.findById(id);
     if (opt.isPresent()) {
-      Player player = playerRepo.save(IplstatUtil.toDomain(opt.get(), Player.class));
+      Player player = playerRepo.saveAndFlush(IplstatUtil.toDomain(playerDto, Player.class));
+      log.info("Player with id {} is updated",player.getId());
+      log.info("{}",player);
       return IplstatUtil.toDto(player, PlayerDto.class);
     }
     throw new PlayerNotFoundException(String.format(PLAYER_WITH_ID_S_IS_NOT_FOUND,id));

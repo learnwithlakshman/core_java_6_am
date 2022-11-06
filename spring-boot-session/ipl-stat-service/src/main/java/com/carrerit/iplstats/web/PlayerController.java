@@ -30,7 +30,7 @@ public class PlayerController {
   public ResponseEntity<Page<PlayerDto>> getPlayers(Pageable pageable){
       return ResponseEntity.ok(playerService.getPlayers(pageable));
   }
-  @GetMapping("/{teamLabel}")
+  @GetMapping("/team/{teamLabel}")
   public ResponseEntity<Page<PlayerDto>> getPlayersByTeamLabel(@PathVariable("teamLabel") String teamLabel, Pageable pageable){
       return ResponseEntity.ok(playerService.getPlayerByTeamLabel(teamLabel,pageable));
   }
