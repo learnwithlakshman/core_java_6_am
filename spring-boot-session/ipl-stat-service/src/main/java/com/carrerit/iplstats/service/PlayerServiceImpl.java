@@ -7,9 +7,8 @@ import com.carrerit.iplstats.repo.PlayerRepo;
 import com.carrerit.iplstats.util.IplstatUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +24,8 @@ public class PlayerServiceImpl implements PlayerService {
 
   public static final String PLAYER_WITH_ID_S_IS_NOT_FOUND = "Player with id %s is not found";
   private final PlayerRepo playerRepo;
+
+  private  Configuration configuration;
 
   @Autowired
   public PlayerServiceImpl(PlayerRepo playerRepo) {
@@ -42,6 +43,7 @@ public class PlayerServiceImpl implements PlayerService {
   }
 
   @Override
+  @Transactional
   public PlayerDto addPlayer(PlayerDto playerDto) {
     Assert.notNull(playerDto, "Player object can't be null");
     Player player = IplstatUtil.toDomain(playerDto, Player.class);
@@ -85,18 +87,22 @@ public class PlayerServiceImpl implements PlayerService {
   @Override
   @Transactional
   public PlayerDto updatePlayer(PlayerDto playerDto) {
-    Assert.notNull(playerDto, "Player details can't null");
-    Assert.notNull(playerDto.getId(), "Player id can't null");
-    Long id = playerDto.getId();
-    Optional<Player> opt = playerRepo.findById(id);
-    if (opt.isPresent()) {
-      Player player = playerRepo.saveAndFlush(IplstatUtil.toDomain(playerDto, Player.class));
-      log.info("Player with id {} is updated",player.getId());
-      log.info("{}",player);
-      return IplstatUtil.toDto(player, PlayerDto.class);
+    Assert.notNull(playerDto, "Player object can't be null");
+    Optional<Player> opt = playerRepo.findById(playerDto.getId());
+    if(opt.isPresent()){
+        Player existingPlayer =  opt.get();
+        existingPlayer.setName(playerDto.getName());
+        existingPlayer.setAmount(playerDto.getAmount());
+        existingPlayer.setCountry(playerDto.getCountry());
+        existingPlayer.setRole(playerDto.getRole());
+        Player player = playerRepo.saveAndFlush(existingPlayer);
+        log.info("Player name :{} amount :{} created date : {} modified date {} ",player.getName(),player.getAmount(),player.getCreatedDate(),player.getModifiedDate());
+        playerDto = IplstatUtil.toDto(player, PlayerDto.class);
+        log.info("Saved object :{}",playerDto);
+        return playerDto;
     }
-    throw new PlayerNotFoundException(String.format(PLAYER_WITH_ID_S_IS_NOT_FOUND,id));
 
+    throw new IllegalArgumentException("Player not found, for the given id");
   }
 
   @Override

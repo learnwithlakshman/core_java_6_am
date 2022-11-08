@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class TeamDto extends  AuditorLogDto {
+public class TeamDto extends AuditorDto {
 
   private String teamLabel;
   private String teamName;

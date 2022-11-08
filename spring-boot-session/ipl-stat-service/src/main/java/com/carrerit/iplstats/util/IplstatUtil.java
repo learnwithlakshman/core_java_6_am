@@ -1,8 +1,7 @@
 package com.carrerit.iplstats.util;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.data.convert.Jsr310Converters;
 import org.springframework.stereotype.Component;
 
 @Component

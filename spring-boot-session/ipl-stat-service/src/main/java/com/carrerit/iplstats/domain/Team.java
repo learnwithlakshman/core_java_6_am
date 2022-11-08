@@ -1,9 +1,9 @@
 package com.carrerit.iplstats.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Team extends AuditorLog {
+public class Team extends Auditable{
   @Id
   @Column(name="team_label")
   private String teamLabel;

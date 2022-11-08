@@ -1,14 +1,9 @@
 package com.carrerit.iplstats;
 
-import com.carrerit.iplstats.domain.Player;
-import com.carrerit.iplstats.dto.PlayerDto;
-import com.carrerit.iplstats.repo.PlayerRepo;
-import com.carrerit.iplstats.util.IplstatUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.carrerit.iplstats.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,18 +11,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @Slf4j
 public class IplstatApplication implements CommandLineRunner {
-  static{
-    ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.registerModule( new JavaTimeModule());
-  }
+
+  @Value("${app.message}")
+  private String message;
+
   @Autowired
-  private PlayerRepo playerRepo;
+  private EmailService emailService;
+
   public static void main(String[] args) {
     SpringApplication.run(IplstatApplication.class,args);
   }
 
   @Override
   public void run(String... args) {
-
+        emailService.sendEmail("hemalatha542@gmail.com","Greeting from Spring Boot World","Hi, Learning spring boot is fun!, lets have fun");
   }
 }

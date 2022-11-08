@@ -28,7 +28,7 @@ class EmployeeDaoTest {
   @Test
   void getEmployees() {
     Employee employee = new Employee();
-    employee.setDeptno(10);
+    employee.setDeptno(10L);
     employee.setEname("Krish");
     employee.setSalary(120000);
     employeeDao.addEmployee(employee);
@@ -39,7 +39,7 @@ class EmployeeDaoTest {
   @Test
   void addEmployee() {
     Employee employee = new Employee();
-    employee.setDeptno(10);
+    employee.setDeptno(10L);
     employee.setEname("Krish");
     employee.setSalary(120000);
     Employee retEmployee = employeeDao.addEmployee(employee);
@@ -49,7 +49,7 @@ class EmployeeDaoTest {
   @Test
   void findByIdTest() {
     Employee employee = new Employee();
-    employee.setDeptno(10);
+    employee.setDeptno(10L);
     employee.setEname("Krish");
     employee.setSalary(120000);
     Employee retEmployee = employeeDao.addEmployee(employee);
@@ -69,17 +69,17 @@ class EmployeeDaoTest {
 
   private List<Employee> employeeList() {
     Employee employee1 = new Employee();
-    employee1.setDeptno(10);
+    employee1.setDeptno(10L);
     employee1.setEname("Krish");
     employee1.setSalary(120000);
 
     Employee employee2 = new Employee();
-    employee2.setDeptno(20);
+    employee2.setDeptno(20L);
     employee2.setEname("Manoj");
     employee2.setSalary(160000);
 
     Employee employee3 = new Employee();
-    employee3.setDeptno(10);
+    employee3.setDeptno(10L);
     employee3.setEname("Sai");
     employee3.setSalary(40000);
     return List.of(employee1, employee2, employee3);

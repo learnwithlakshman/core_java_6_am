@@ -3,16 +3,16 @@ package com.carrerit.iplstats.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.StringJoiner;
+
 
 @Getter
 @Setter
 @Entity(name = "player")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Player extends  AuditorLog{
+public class Player extends Auditable {
   @Id
   @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)

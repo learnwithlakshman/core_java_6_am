@@ -2,6 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
     <modelVersion>4.0.0</modelVersion>
    <groupId>com.careerit</groupId>
     <artifactId>spring-boot-session</artifactId>
@@ -9,6 +15,7 @@
     <modules>
         <module>spring-jdbc</module>
         <module>ipl-stat-service</module>
+        <module>spring-util</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
