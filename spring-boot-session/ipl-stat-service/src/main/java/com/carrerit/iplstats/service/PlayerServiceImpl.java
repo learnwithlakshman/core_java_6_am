@@ -6,6 +6,11 @@ import com.carrerit.iplstats.exception.PlayerNotFoundException;
 import com.carrerit.iplstats.repo.PlayerRepo;
 import com.carrerit.iplstats.util.IplstatUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Page;
@@ -14,6 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,6 +34,9 @@ public class PlayerServiceImpl implements PlayerService {
   private final PlayerRepo playerRepo;
 
   private  Configuration configuration;
+
+  @Autowired
+  private EmailService emailService;
 
   @Autowired
   public PlayerServiceImpl(PlayerRepo playerRepo) {
@@ -111,6 +122,49 @@ public class PlayerServiceImpl implements PlayerService {
     Page<PlayerDto> players = playerRepo.findByTeamLabel(teamLabel, pageable).map(ele -> IplstatUtil.toDto(ele, PlayerDto.class));
     log.info("Team {} has {}", teamLabel, players.getTotalElements());
     return players;
+  }
+  @Override
+  public void sendPlayerDataAsEmail(String toEmail) {
+    List<Player> players = playerRepo.findAll();
+    String tempDir = System.getProperty("java.io.tmpdir");
+    String fileName = System.currentTimeMillis() + "_" + "players.xlsx";
+    File file = new File(tempDir + fileName);
+    try (FileOutputStream fos = new FileOutputStream(file)) {
+      Workbook workbook = new XSSFWorkbook();
+      Sheet sheet = workbook.createSheet("players");
+      int rowcount = 0;
+      Row row = sheet.createRow(rowcount++);
+      Object[] colHeading = new Object[]{"Id", "Name", "Role", "Country", "Team_label", "Amount"};
+      int i = 0;
+      for (Object obj : colHeading) {
+        Cell cell = row.createCell(i++);
+        cell.setCellValue((String) obj);
+      }
+      for (Player player : players) {
+        row = sheet.createRow(rowcount++);
+        i = 0;
+        Cell cell = row.createCell(i++);
+        cell.setCellValue(player.getId());
+        cell = row.createCell(i++);
+        cell.setCellValue(player.getName());
+        cell = row.createCell(i++);
+        cell.setCellValue(player.getRole());
+        cell = row.createCell(i++);
+        cell.setCellValue(player.getCountry());
+        cell = row.createCell(i++);
+        cell.setCellValue(player.getTeamLabel());
+        cell = row.createCell(i++);
+        cell.setCellValue(player.getAmount());
+      }
+      workbook.write(fos);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    sendEmail(file,toEmail);
+  }
+
+  private void sendEmail(File file, String toEmail) {
+      emailService.sendEmail(toEmail,"Player Details","Please find attachment which all the player details",file.getPath());
   }
 
 }

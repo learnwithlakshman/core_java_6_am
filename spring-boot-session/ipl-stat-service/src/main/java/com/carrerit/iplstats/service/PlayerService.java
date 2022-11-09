@@ -16,5 +16,5 @@ public interface PlayerService {
         PlayerDto updatePlayer(PlayerDto playerDto);
         Page<PlayerDto> getPlayerByTeamLabel(String teamLabel,Pageable pageable);
         List<PlayerDto> addPlayers(List<PlayerDto> list);
-
+        void sendPlayerDataAsEmail(String toEmail);
 }

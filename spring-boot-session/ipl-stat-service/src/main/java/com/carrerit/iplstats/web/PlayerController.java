@@ -5,6 +5,7 @@ import com.carrerit.iplstats.util.AppResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +48,12 @@ public class PlayerController {
   @PutMapping
   public ResponseEntity<PlayerDto> updatePlayer(@RequestBody PlayerDto playerDto) {
     return ResponseEntity.ok(playerService.updatePlayer(playerDto));
+  }
+  @GetMapping("/email/{toEmail}")
+  public ResponseEntity<AppResponse> sendEmail(@PathVariable("toEmail")String toEmail) {
+        playerService.sendPlayerDataAsEmail(toEmail);
+        AppResponse appResponse = AppResponse.builder().message("Email sent successfully").httpStatus(HttpStatus.OK).build();
+        return ResponseEntity.ok(appResponse);
   }
 
   @DeleteMapping("/{id}")
